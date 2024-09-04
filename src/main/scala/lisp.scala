@@ -1,12 +1,3 @@
-# ParserCombinator
-
-A simple parser combinator library for Scala3, with error reporting.
-
-## For Example
-
-A Lisp parser:
-
-```scala 3
 package com.skillw
 
 import Parser.*
@@ -55,39 +46,3 @@ object LispParser{
 
   def program = atom.all(blank)
 }
-```
-
-If parse failed, it will show a `ParseError`:
-
-```scala 3
-  val input =
-    """
-      | (define (square x)
-      |  (* x x)
-      |
-      | (a (- 2 1))
-      | (b (- 3 1))
-      |
-      |""".stripMargin
-  LispParser.program.parse(input) match {
-    case Ok(value) => println(value)
-    case e:Err => e.error
-  }
-```
-
-Such as:
-
-```
-Exception in thread "main" java.lang.Exception: 
-  Error occurred : Expected ) but got end of input at line 7 , 0:
-
-       (b (- 3 1))
-      
-      ^
-      
-
-    
-	at com.skillw.Err.error(parser_combinator.scala:41)
-	at com.skillw.main$package$.main(main.scala:18)
-	at com.skillw.main.main(main.scala:5)
-```
